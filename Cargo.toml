@@ -39,4 +39,5 @@ libc  = "0.2"
 xcb   = { version = "0.9", features = ["randr", "dpms", "xkb", "thread"] }
 xcbu  = { package = "xcb-util", version = "0.3", features = ["icccm", "ewmh", "thread"] }
 xkb   = { version = "0.2", features = ["x11"] }
-api   = { package = "screenruster-saver", version = "0.2", default-features = false, path = "../saver" }
+api   = { package = "screenruster-saver", version = "0.2", default-features = false, path = "../screenruster-saver" }
+xcb-wm = "0.4.0"

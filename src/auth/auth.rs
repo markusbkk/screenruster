@@ -48,7 +48,7 @@ impl Auth {
 		let mut methods = Vec::<Box<dyn Authenticate>>::new();
 
 		#[cfg(feature = "auth-internal")]
-		methods.push(box super::internal::new(config.get("internal"))?);
+		methods.push(Box::new(super::internal::new(config.get("internal"))?));
 
 		#[cfg(feature = "auth-pam")]
 		methods.push(Box::new(super::pam::new(config.get("pam"))?));

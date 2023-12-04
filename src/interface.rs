@@ -403,19 +403,18 @@ impl Interface {
 					const NAME: &'static str = "PrepareForSleep";
 					const INTERFACE: &'static str = "org.freedesktop.login1.Manager";
 				}
-
+				
 				system.with_proxy("org.freedesktop.login1.Manager", "/org/freedesktop/login1", Duration::from_micros(5_000))
-					.match_signal(|p: PrepareForSleep, _: &Connection, _: &Message| {
+					.match_signal(move|p: PrepareForSleep, _: &Connection, _: &Message| {
 						sender.send(Request::PrepareForSleep(
 							if p.arg0 { Some(SystemTime::now()) } else { None })).unwrap();
-
 						// In case the system is suspending, unlock the suspension,
 						// otherwise delay the next.
 						if p.arg0 {
 							inhibitor.take();
 						}
 						else {
-							inhibitor = inhibit(&system);
+							// inhibitor = inhibit(&system);
 						}
 
 						true
